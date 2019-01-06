@@ -1,21 +1,25 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import ViewWrapper from './xplatform-frontend/src/components/ViewWrapper';
+import { Provider } from 'react-redux'; 
+import { createStore, applyMiddleware } from 'redux';
+import reducers from './xplatform-frontend/src/data';
+import thunk from 'redux-thunk';
 
-export default class App extends React.Component {
+class App extends React.Component {
+  
   render() {
+    const store = createStore(reducers, {}, applyMiddleware(thunk));
+  
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
+      <Provider store={store}>
+        <ViewWrapper />
+      </Provider>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+export default App;
+
+
+
